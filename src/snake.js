@@ -8,6 +8,9 @@
  */
 function initSnake() {
   // A compléter
+
+  let snakeT = [];
+  snakeT[0] = { x: 10*box, y: 10*box};//initialise la tête du serpent à cette posotion 
 }
 
 /**

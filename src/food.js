@@ -11,6 +11,10 @@
  */
 function generateFood() {
   // A compléter
+  let food = {
+    x: Math.floor(Math.random() * 15 + 1) * box, //Position aléatoirement le carré nourriture sur l'axe x (génère un nombre aléatoire entre 0 et 15 et Math. floor va arrondir le nombre)
+    y: Math.floor(Math.random() * 15 + 1) * box //Même chose mais sur l'axe y
+  };
 }
 
 /**
