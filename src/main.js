@@ -19,73 +19,54 @@ document.addEventListener("keydown", (event) => {
   direction = handleDirectionChange(event, direction);
 });
 
-function startGame() {
+/*function startGame() {
   snake = initSnake();
   food = generateFood(box, canvas);
+  score = 0;
+  //gameInterval = setInterval(draw, gameSpeed); // Stockage de l'identifiant de l'intervalle
 
-  gameInterval = setInterval(draw, gameSpeed); // Stockage de l'identifiant de l'intervalle
+  if(gameInterval) clearInterval(gameInterval);
+  gameInterval = setInterval(draw, gameSpeed);
+}*/
+
+function startGame() {
+  snake = initSnake(box); // Correction 3
+  food = generateFood(box, canvas); // Correction 5
+
+  // ... (votre code existant)
+
+  if(gameInterval) clearInterval(gameInterval);
+  
+  // NOUVELLE CORRECTION : Dessiner une fois avant de démarrer l'intervalle
+  draw(); 
+
+  gameInterval = setInterval(draw, gameSpeed);
 }
 
 function draw() {
   // A compléter
 
-  useContext.clearRect(0, 0, 400, 400)
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for(let i = 0; i < snakeT.legth; i++){
-    Context.fillStyle = (i == 0) ? "green" : "white"
-    context.fillReact(snakeT[i].x, snake[i].y, box, box);
-    context.strokeStyle = "red"
-    context.strokeReact(snake[i].x, snake[i].y, box, box);
-  }
+  drawSnake(ctx, snake, box);
+  drawFood(ctx, food, box);
+  drawScore(ctx, score);
 
-  context.fillStyle = "orange"
-  context.fillReact(food.x, food.y, box, box);
+  let head = moveSnake(snake, direction, box);
 
-  let snakeX = snakeT[0].x
-  let snakeY = snakeT[0].y
-
-  if(direction == "LEFT") snakeX -= box;
-  if(direction == "UP") snakeY -= box;
-  if(direction == "RIGHT") snakeX += box;
-  if(direction == "DOWN") snakeY += box;
-
-  if(snakeX == food.x && snakeY == food.y){
-    score ++ 
-    food = {
-      x: Math.floor(Math.random() * 15 + 1) * box,
-      y: Math.floor(Math.random() * 15 + 1) * box
-    }
+  if (head.x === food.x && head.y === food.y) {
+    score++;
+    food = generateFood(box, canvas);
   } else {
     snake.pop();
   }
 
-
-let newHead = {
-  x: snakeX,
-  y: snakeY
-}
-
-
-if(snakeX < 0 || snakeY < 0 || snakeX > 19*box || snakeY >19*box || collision(newHead, snake)){
-  clearInterval(game);
-}
-
-snake.unshift(newHead);
-
-context.fillStyle = "red"
-context.font = "30px Arial"
-context.fillText(score, 2*box, 1.6*box)
-}
-
-function collision(head, array){
-  for(let g = 0; g < array.legth; g++){
-    if(head.x == array[g].x && head.y == array[g].y){
-      return true;
-    }
+  if (checkCollision(head, snake) || checkWallCollision(head, canvas, box)) {
+    clearInterval(gameInterval);
+    alert("Game Over ! Score final : " + score);
+    return;
   }
-  return false; 
+
+  snake.unshift(head);
 }
-
-let game = setInterval(draw, 100)
-
 startGame(); 

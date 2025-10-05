@@ -1,3 +1,5 @@
+export { checkCollision, checkWallCollision };
+
 /**
  * Vérifie si la tête du serpent entre en collision avec son propre corps.
  *

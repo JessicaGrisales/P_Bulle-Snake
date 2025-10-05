@@ -1,3 +1,4 @@
+export { drawScore };
 /**
  * Dessine le score sur le canvas.
  *
@@ -13,4 +14,3 @@ function drawScore(ctx, score) {
   ctx.font = "20px Arial";
   ctx.fillText("Score" + score, 10, 20);
 }
-

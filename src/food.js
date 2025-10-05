@@ -1,3 +1,4 @@
+export { generateFood, drawFood }; 
 /**
  * Génère de manière aléatoire la position de la nourriture sur la grille du jeu.
  *
@@ -9,12 +10,13 @@
  * @param {HTMLCanvasElement} canvas - L'élément canvas représentant la surface de jeu.
  * @returns {{x: number, y: number}} - Un objet contenant les coordonnées `x` et `y` de la nourriture générée.
  */
-function generateFood() {
+function generateFood(box, canvas) {
   // A compléter
   let food = {
-    x: Math.floor(Math.random() * 15 + 1) * box, //Position aléatoirement le carré nourriture sur l'axe x (génère un nombre aléatoire entre 0 et 15 et Math. floor va arrondir le nombre)
-    y: Math.floor(Math.random() * 15 + 1) * box //Même chose mais sur l'axe y
+    x: Math.floor(Math.random() * (canvas.width / box)) * box, //Position aléatoirement le carré nourriture sur l'axe x (génère un nombre aléatoire entre 0 et 15 et Math. floor va arrondir le nombre)
+    y: Math.floor(Math.random() * (canvas.height / box)) * box //Même chose mais sur l'axe y
   };
+    return food; 
 }
 
 /**
@@ -28,6 +30,8 @@ function generateFood() {
  * @param {{x: number, y: number}} food - Un objet contenant les coordonnées `x` et `y` où la nourriture doit être dessinée.
  * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer la taille de la nourriture.
  */
-function drawFood() {
+function drawFood(ctx, food, box) {
   // A compléter
+  ctx.fillStyle = "orange";
+  ctx.fillRect(food.x, food.y, box, box);
 }
