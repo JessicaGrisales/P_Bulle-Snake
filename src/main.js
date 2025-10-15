@@ -14,24 +14,17 @@ let food;
 let direction = "RIGHT";
 let score = 0;
 let gameInterval; // Variable pour stocker l'identifiant de l'intervalle
+let isGameOver = false; // varible d'état
 
 document.addEventListener("keydown", (event) => {
   direction = handleDirectionChange(event, direction);
 });
 
-/*function startGame() {
-  snake = initSnake();
-  food = generateFood(box, canvas);
-  score = 0;
-  //gameInterval = setInterval(draw, gameSpeed); // Stockage de l'identifiant de l'intervalle
-
-  if(gameInterval) clearInterval(gameInterval);
-  gameInterval = setInterval(draw, gameSpeed);
-}*/
-
 function startGame() {
   snake = initSnake(box); // Correction 3
   food = generateFood(box, canvas); // Correction 5
+  score = 0; // Réinitialiser le score au démarrage
+  isGameOver = false; // Réinitialiser l'état
 
   // ... (votre code existant)
 
@@ -54,6 +47,20 @@ function draw() {
 
   let head = moveSnake(snake, direction, box);
 
+  // 3. VÉRIFIER la collision
+  if (checkCollision(head, snake) || checkWallCollision(head, canvas, box)) {
+    clearInterval(gameInterval);
+    isGameOver = true; // 👈 Mettre l'état à Game Over
+    // Le reste du code est ignoré
+  }
+  
+  // 4. Si c'est Game Over, affichez le message et sortez !
+  if (isGameOver) {
+    drawGameOver(); // 👈 Nouvelle fonction pour l'affichage
+    return; // Sortir de la fonction draw
+  }
+  
+  // 5. METTRE À JOUR les positions si PAS de collision
   if (head.x === food.x && head.y === food.y) {
     score++;
     food = generateFood(box, canvas);
@@ -61,12 +68,19 @@ function draw() {
     snake.pop();
   }
 
-  if (checkCollision(head, snake) || checkWallCollision(head, canvas, box)) {
-    clearInterval(gameInterval);
-    alert("Game Over ! Score final : " + score);
-    return;
-  }
-
   snake.unshift(head);
+  
+  // 6. Le DESSIN du corps mis à jour se fera au prochain appel de draw()
 }
-startGame(); 
+
+ // Affiche le message "Game Over" au centre du canvas.
+function drawGameOver() {
+    ctx.fillStyle = "black";
+    ctx.font = "50px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("Game Over!", canvas.width / 2, canvas.height / 2);
+    
+    ctx.font = "20px Arial";
+    ctx.fillText("Score final : " + score, canvas.width / 2, canvas.height / 2 + 50);
+}
+  startGame(); 
