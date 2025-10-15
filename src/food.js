@@ -32,6 +32,6 @@ function generateFood(box, canvas) {
  */
 function drawFood(ctx, food, box) {
   // A compléter
-  ctx.fillStyle = "orange";
+  ctx.fillStyle = "red";
   ctx.fillRect(food.x, food.y, box, box);
 }
