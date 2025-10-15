@@ -12,5 +12,6 @@ function drawScore(ctx, score) {
   // A compléter
   ctx.fillStyle = "black";
   ctx.font = "20px Arial";
-  ctx.fillText("Score" + score, 10, 20);
+  ctx.textAlign = "left";
+  ctx.fillText("Score: \n" + score, 10, 20);
 }
