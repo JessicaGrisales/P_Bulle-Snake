@@ -84,7 +84,7 @@ function startGame() {
 
 // NOUVELLE FONCTION: Affiche le message PAUSE
 function drawPause() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.5)"; 
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "white";

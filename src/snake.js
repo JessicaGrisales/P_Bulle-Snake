@@ -51,6 +51,5 @@ function drawSnake(ctx, snake, box) {
   for (let i = 0; i < snake.length; i++) {
     ctx.fillStyle = (i === 0) ? "green" : "#E0FFE0";
     ctx.fillRect(snake[i].x, snake[i].y, box, box);
-    ctx.strokeRect(snake[i].x, snake[i].y, box, box);
   }
 }

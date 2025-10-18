@@ -12,13 +12,12 @@ export { handleDirectionChange };
  * @returns {string} - La nouvelle direction du serpent après traitement, ou la direction actuelle si le changement n'est pas valide.
  */
 
-//document.addEventListener("keydown", direction);
 
 function handleDirectionChange(event, currentDirection) {
-  // A compléter
+  
   let key = event.keyCode;
   if (key === 37 && currentDirection !== "RIGHT") return "LEFT";
-  if (key === 38 && currentDirection !== "DOWN") return "UP";
+  if (key === 38 && currentDirection !== "Down") return "UP";
   if (key === 39 && currentDirection !== "LEFT") return "RIGHT";
   if (key === 40 && currentDirection !== "UP") return "DOWN";
   return currentDirection;
