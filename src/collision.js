@@ -14,14 +14,18 @@ export { checkCollision, checkWallCollision };
  */
 
 function checkCollision(head, snakeArray) {
-  // A compléter
+  // Parcourt tous les segments du serpent
   for (let i = 0; i < snakeArray.length; i++) {
+    // Vérifie si la tête partage les mêmes coordonnées qu'un segment (carré)
     if (head.x === snakeArray[i].x && head.y === snakeArray[i].y) {
-      return true;
+      // Collision détectée
+      return true; 
     }
   }
-  return false;
+  // Pas de collision
+  return false; 
 }
+
 
 /**
  * Vérifie si la tête du serpent entre en collision avec les murs du canvas.
@@ -37,7 +41,7 @@ function checkCollision(head, snakeArray) {
  * @returns {boolean} - Retourne `true` si la tête du serpent entre en collision avec un mur, sinon `false`.
  */
 function checkWallCollision(head, canvas, box) {
-  // A compléter
+  // Vérifie si la tête dépasse les limites gauche, haut, droite ou bas du canvas
   return (
     head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height
   );

@@ -11,10 +11,12 @@ export { generateFood, drawFood };
  * @returns {{x: number, y: number}} - Un objet contenant les coordonnées `x` et `y` de la nourriture générée.
  */
 function generateFood(box, canvas) {
-  // A compléter
+  // Génère une position aléatoire alignée sur la grille pour la nourriture
   let food = {
-    x: Math.floor(Math.random() * (canvas.width / box)) * box, //Position aléatoirement le carré nourriture sur l'axe x (génère un nombre aléatoire entre 0 et 15 et Math. floor va arrondir le nombre)
-    y: Math.floor(Math.random() * (canvas.height / box)) * box //Même chose mais sur l'axe y
+    //Position aléatoirement le carré nourriture sur l'axe x (génère un nombre aléatoire entre 0 et 15 et Math. floor va arrondir le nombre)
+    x: Math.floor(Math.random() * (canvas.width / box)) * box, 
+    //Même chose mais sur l'axe y
+    y: Math.floor(Math.random() * (canvas.height / box)) * box 
   };
     return food; 
 }
@@ -31,7 +33,8 @@ function generateFood(box, canvas) {
  * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer la taille de la nourriture.
  */
 function drawFood(ctx, food, box) {
-  // A compléter
+  // Donne la couleur rouge au carré de nourriture
   ctx.fillStyle = "red";
+  // Dessin le carré
   ctx.fillRect(food.x, food.y, box, box);
 }

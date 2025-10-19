@@ -14,11 +14,13 @@ export { handleDirectionChange };
 
 
 function handleDirectionChange(event, currentDirection) {
-  
+  // Vérifie quelle touche est pressée et si le serpent peut changer de direction
   let key = event.keyCode;
   if (key === 37 && currentDirection !== "RIGHT") return "LEFT";
-  if (key === 38 && currentDirection !== "Down") return "UP";
+  if (key === 38 && currentDirection !== "DOWN") return "UP";
   if (key === 39 && currentDirection !== "LEFT") return "RIGHT";
   if (key === 40 && currentDirection !== "UP") return "DOWN";
-  return currentDirection;
+  // Aucun changement valide, retourne la direction actuelle
+    return currentDirection; 
+
 }

@@ -7,32 +7,56 @@ import { drawScore } from "./score.js";
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+// Taille d'une case de la grille
 const box = 20;
+// Vitesse du jeu (intervalle en ms)
 const gameSpeed = 200;
+// Tableau représentant le serpent
 let snake;
+// Objet représentant la nourriture
 let food;
+// Direction initiale
 let direction = "RIGHT";
+// Score initial
 let score = 0;
-let gameInterval; // Variable pour stocker l'identifiant de l'intervalle
-let gameOver = false; // varible d'état
-let Paused = false; // variable pour la pause
+// Intervalle pour la boucle de jeu
+let gameInterval; 
+// varible d'état
+let gameOver = false; 
+// variable pour la pause
+let Paused = false; 
 
 // Variables du Chronomètre
-let gameTime; // Timestamp du début de la partie (pour calculer le temps écoulé)
-let timeSecond = 0; // Temps écoulé en secondes
-let intervalTime; // Intervalle pour le chronomètre
+// Début de la partie (pour calculer le temps écoulé)
+let gameTime; 
+// Temps écoulé en secondes
+let timeSecond = 0; 
+// Intervalle pour le chronomètre
+let intervalTime; 
+
+// ======================================
+// GESTION DES TOUCHES
+// ======================================
 
 document.addEventListener("keydown", (event) => {
   // 32 est le code de la touche Espace
   if (event.keyCode === 32) { 
-    pauseTouch(); // Appelle la fonction de pause/reprise
+    // // Touche espace → pause/reprise
+    pauseTouch(); 
   } else if (!Paused && !gameOver) {
     // Ne change la direction que si le jeu n'est ni en pause ni terminé
     direction = handleDirectionChange(event, direction);
   }
 });
 
-// NOUVELLE FONCTION: Met à jour le temps écoulé
+// ======================================
+// FONCTIONS DU CHRONOMÈTRE
+// ======================================
+
+/**
+ * Met à jour le temps écoulé depuis le début du jeu.
+ * Ne s'exécute pas si le jeu est en pause ou terminé.
+ */
 function updateTime() {
   if (Paused || gameOver) return;
   
@@ -41,27 +65,46 @@ function updateTime() {
   timeSecond = Math.floor((now - gameTime) / 1000); 
 }
 
-// FONCTION MODIFIÉE: Gère l'état de pause/reprise
+// ======================================
+// FONCTION DE PAUSE / REPRISE
+// ======================================
+
+/**
+ * Gère l'état de pause et de reprise du jeu.
+ * - Suspend la boucle principale et le chronomètre si en pause.
+ * - Reprend les intervalles si le jeu est relancé.
+ */
 function pauseTouch() {
   if (gameOver) return; 
   
   Paused = !Paused;
   
   if (Paused) {
-    clearInterval(gameInterval); // SUSPENDRE L'INTERVALLE du mouvement
-    clearInterval(intervalTime); // SUSPENDRE L'INTERVALLE du chronomètre
-    draw(); // Dessiner une dernière fois pour afficher le message PAUSE
+     // Suspendre le mouvement et le chronomètre
+    clearInterval(gameInterval);
+    clearInterval(intervalTime); 
+    // Afficher le message PAUSE
+    draw(); 
   } else {
     // Reprendre le chronomètre en ajustant le temps de départ
     gameTime = Date.now() - (timeSecond * 1000); 
-    
-    // Redémarrer les intervalles
+    // Relancer les intervalles du jeu et du chronomètre
     gameInterval = setInterval(draw, gameSpeed); 
     intervalTime = setInterval(updateTime, 1000);
   }
 }
 
-// FONCTION MODIFIÉE: Initialisation du jeu
+
+// ======================================
+// INITIALISATION DU JEU
+// ======================================
+
+/**
+ * Initialise le jeu :
+ * - Crée le serpent et la nourriture.
+ * - Réinitialise le score et les états.
+ * - Démarre la boucle principale et le chronomètre.
+ */
 function startGame() {
   snake = initSnake(box); 
   food = generateFood(box, canvas); 
@@ -72,17 +115,24 @@ function startGame() {
   // Démarrer le chronomètre
   gameTime = Date.now();
   timeSecond = 0;
-
+  // Nettoyer d'éventuels intervalles précédents
   if(gameInterval) clearInterval(gameInterval);
-  if(intervalTime) clearInterval(intervalTime); // Nettoyer l'ancien timer
+  if(intervalTime) clearInterval(intervalTime);
   
   draw(); 
 
   gameInterval = setInterval(draw, gameSpeed);
-  intervalTime = setInterval(updateTime, 1000); // Mise à jour toutes les 1000ms (1s)
+  // Mise à jour toutes les 1000ms (1s)
+  intervalTime = setInterval(updateTime, 1000); 
 }
 
-// NOUVELLE FONCTION: Affiche le message PAUSE
+// ======================================
+// AFFICHAGE DES MESSAGES
+// ======================================
+
+/**
+ * Affiche le message PAUSE sur le canvas.
+ */
 function drawPause() {
     ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -93,26 +143,41 @@ function drawPause() {
     ctx.fillText("PAUSE", canvas.width / 2, canvas.height / 2);
 }
 
-// FONCTION MODIFIÉE: Affiche le message Game Over avec le temps final
+/**
+ * Affiche le message GAME OVER avec le score et le temps écoulé.
+ */
 function drawGameOver() {
     ctx.fillStyle = "black";
     ctx.font = "50px Arial";
     ctx.textAlign = "center";
+    // Affichage de Game Over
     ctx.fillText("Game Over!", canvas.width / 2, canvas.height / 2);
     
     ctx.font = "20px Arial";
+    // Affichage du score final
     ctx.fillText("Score final : " + score, canvas.width / 2, canvas.height / 2 + 50);
     // Affichage du temps final
     ctx.fillText("Temps écoulé : " + timeSecond + " s", canvas.width / 2, canvas.height / 2 + 80); 
 }
 
-// FONCTION MODIFIÉE: Boucle de jeu principale
+// ======================================
+// BOUCLE PRINCIPALE DU JEU
+// ======================================
+
+/**
+ * Boucle principale de dessin et de mise à jour du jeu.
+ * - Gère la pause et le Game Over.
+ * - Déplace le serpent.
+ * - Vérifie les collisions.
+ * - Gère la consommation de nourriture.
+ * - Met à jour le tableau du serpent.
+ */
 function draw() {
   // A compléter
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // 1. GESTION DE LA PAUSE : Si le jeu est en pause, on affiche le message et on sort.
+  // Gestion de la pause : Si le jeu est en pause, on affiche le message et on sort.
   if (Paused) {
       drawSnake(ctx, snake, box); 
       drawFood(ctx, food, box);
@@ -121,37 +186,40 @@ function draw() {
       return; 
   }  
 
-  // 2. DESSIN DE L'ÉTAT ACTUEL (avant le mouvement)
+  // Dessin de l'état actuel (avant le mouvement)
   drawSnake(ctx, snake, box);
   drawFood(ctx, food, box);
   drawScore(ctx, score, timeSecond); // Doit passer le temps
 
-  // 3. CALCUL DE LA NOUVELLE TÊTE
+  // Calcule de la nouvelle tête
   let head = moveSnake(snake, direction, box);
 
-  // 4. VÉRIFICATION DE LA COLLISION (Game Over)
+  // Vérification des collisions (Game Over)
   if (checkCollision(head, snake) || checkWallCollision(head, canvas, box)) {
     clearInterval(gameInterval);
-    clearInterval(intervalTime); // Arrêter le chronomètre
+    // Arrêter le chronomètre
+    clearInterval(intervalTime); 
     gameOver = true; 
   }
   
-  // 5. GESTION DE LA FIN DU JEU : Si collision, on affiche le message et on sort.
+  // Gestion de la fin de jeu : Si collision, on affiche le message et on sort.
   if (gameOver) {
     drawGameOver(); 
     return; // Sortir de la fonction draw
   }
   
-  // 6. MISE À JOUR DU CORPS (UNIQUEMENT SI PAS DE COLLISION)
+  // Gestion de la nourriture
   if (head.x === food.x && head.y === food.y) {
     score++;
     food = generateFood(box, canvas);
   } else {
     snake.pop();
   }
-  // 7. AJOUT DE LA NOUVELLE TÊTE
+  // Ajout de la nouvelle tête
   snake.unshift(head);
-  
 }
 
+// ======================================
+// DÉMARRAGE DU JEU
+// ======================================
 startGame(); 
