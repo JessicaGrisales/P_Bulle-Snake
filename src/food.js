@@ -1,3 +1,9 @@
+/**
+ * ETML
+ * Auteur : Jessica Grisales
+ * Date : 26.10.2025
+ * Description : Module qui va créer la nourriture, le style et son comportement.
+ */
 export { generateFood, drawFood }; 
 /**
  * Génère de manière aléatoire la position de la nourriture sur la grille du jeu.
@@ -9,6 +15,10 @@ export { generateFood, drawFood };
  * @param {number} box - La taille d'une case de la grille en pixels.
  * @param {HTMLCanvasElement} canvas - L'élément canvas représentant la surface de jeu.
  * @returns {{x: number, y: number}} - Un objet contenant les coordonnées `x` et `y` de la nourriture générée.
+ */
+
+/**
+ * Fontion qui permet de créer ou générer le carré de nourriture.
  */
 function generateFood(box, canvas) {
   // Génère une position aléatoire alignée sur la grille pour la nourriture
@@ -31,6 +41,10 @@ function generateFood(box, canvas) {
  * @param {CanvasRenderingContext2D} ctx - Le contexte de rendu 2D du canvas utilisé pour dessiner.
  * @param {{x: number, y: number}} food - Un objet contenant les coordonnées `x` et `y` où la nourriture doit être dessinée.
  * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer la taille de la nourriture.
+ */
+
+/**
+ * Fonction charger de dessiner et donner forme à la nourriture.
  */
 function drawFood(ctx, food, box) {
   // Donne la couleur rouge au carré de nourriture

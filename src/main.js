@@ -1,3 +1,10 @@
+/**
+ * ETML
+ * Auteur : Jessica Grisales
+ * Date : 26.10.2025
+ * Description : Partie principale où se rejoingnent toutes les autres fonctions
+ *               des différents modules et les connecter entre eux. 
+ */
 import { initSnake, moveSnake, drawSnake } from "./snake.js";
 import { generateFood, drawFood } from "./food.js";
 import { handleDirectionChange } from "./controls.js";
@@ -136,7 +143,7 @@ function startGame() {
 function drawPause() {
     ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+    // Affichage du un style 
     ctx.fillStyle = "white";
     ctx.font = "50px Arial";
     ctx.textAlign = "center";
@@ -173,7 +180,6 @@ function drawGameOver() {
  * - Met à jour le tableau du serpent.
  */
 function draw() {
-  // A compléter
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 

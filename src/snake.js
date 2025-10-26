@@ -1,3 +1,9 @@
+/**
+ * ETML
+ * Auteur : Jessica Grisales
+ * Date : 26.10.2025
+ * Description : Module qui construit tout ce qui est en rapport avec le serpent
+ */
 export { initSnake, moveSnake, drawSnake };
 /**
  * Initialise le serpent au début du jeu.
@@ -24,6 +30,10 @@ function initSnake(box) {
  * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer la distance de déplacement du serpent.
  * @returns {{x: number, y: number}} - Un objet représentant les nouvelles coordonnées `x` et `y` de la tête du serpent après le déplacement.
  */
+
+/**
+ * Fonction qui dénifit les mouvements du serpent.
+ */
 function moveSnake(snake, direction, box) {
   // Copie la tête actuelle
   let head = {...snake[0]};
@@ -47,6 +57,10 @@ function moveSnake(snake, direction, box) {
  * @param {CanvasRenderingContext2D} ctx - Le contexte de rendu 2D du canvas utilisé pour dessiner.
  * @param {Array<{x: number, y: number}>} snake - Un tableau représentant le serpent, où chaque élément est un segment avec des coordonnées `x` et `y`.
  * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer la taille de chaque segment du serpent.
+ */
+
+/**
+ * Fonction qui dessine le serpent avec les nouvaux ajouts (carré).
  */
 function drawSnake(ctx, snake, box) {
   // Dessiner le serpent (tête et corps)

@@ -1,3 +1,9 @@
+/**
+ * ETML
+ * Auteur : Jessica Grisales
+ * Date : 26.10.2025
+ * Description : Module qui permettra de changer le serpent de direction avec les touches directionnelles. 
+ */
 export { handleDirectionChange };
 /**
  * Gère le changement de direction du serpent en fonction de l'entrée de l'utilisateur.
@@ -12,7 +18,9 @@ export { handleDirectionChange };
  * @returns {string} - La nouvelle direction du serpent après traitement, ou la direction actuelle si le changement n'est pas valide.
  */
 
-
+/**
+ * Fonction permettre de changer de direction.
+ */
 function handleDirectionChange(event, currentDirection) {
   // Vérifie quelle touche est pressée et si le serpent peut changer de direction
   let key = event.keyCode;

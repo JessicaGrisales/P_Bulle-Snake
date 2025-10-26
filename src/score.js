@@ -1,3 +1,9 @@
+/**
+ * ETML
+ * Auteur : Jessica Grisales
+ * Date : 26.10.2025
+ * Description : Module qui gère le score du jeu
+ */
 export { drawScore };
 /**
  * Dessine le score et le temps écoulé sur le canvas.
@@ -9,6 +15,10 @@ export { drawScore };
  * @param {number} score - Le score à afficher, qui est un entier.
  * @param {number} timeSecond - Le temps écoulé en secondes.
 */
+
+/**
+ * Fonction qui dessine et donne forme au score. 
+ */
 function drawScore(ctx, score, timeSecond) { 
   // Affichage du Score (en haut à gauche)
   ctx.fillStyle = "black";

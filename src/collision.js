@@ -1,3 +1,9 @@
+/**
+ * ETML
+ * Auteur : Jessica Grisales
+ * Date : 26.10.2025
+ * Description : Module qui gère directement les collisions entre le murs et le corps du serpent
+ */
 export { checkCollision, checkWallCollision };
 
 /**
@@ -13,6 +19,9 @@ export { checkCollision, checkWallCollision };
  * @returns {boolean} - Retourne `true` si la tête du serpent entre en collision avec un segment de son corps, sinon `false`.
  */
 
+/**
+ * Boucle qui va checker la collision du serpent sur son propre corps.
+ */
 function checkCollision(head, snakeArray) {
   // Parcourt tous les segments du serpent
   for (let i = 0; i < snakeArray.length; i++) {
@@ -39,6 +48,10 @@ function checkCollision(head, snakeArray) {
  * @param {HTMLCanvasElement} canvas - L'élément canvas représentant la surface de jeu.
  * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer les limites du déplacement du serpent.
  * @returns {boolean} - Retourne `true` si la tête du serpent entre en collision avec un mur, sinon `false`.
+ */
+
+/**
+ * Fonction qui va checker la collision du serpent avec les bords.
  */
 function checkWallCollision(head, canvas, box) {
   // Vérifie si la tête dépasse les limites gauche, haut, droite ou bas du canvas
